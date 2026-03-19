@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Edreanna Valiente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0e0d0c;
+    --white: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c94e2a;
+    --accent2: #e8b44a;
+    --muted: #7a7570;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--body);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    mix-blend-mode: difference;
+  }
+  .nav-logo { font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero-left { background: var(--black); display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 3rem 5rem; position: relative; z-index: 2; }
+  .hero-tagline { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--accent2); letter-spacing: 0.05em; margin-bottom: 1.2rem; }
+  .hero-name { font-family: var(--display); font-size: clamp(5rem, 9vw, 10rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 2rem; }
+  .hero-name span { color: var(--accent); }
+  .hero-desc { font-size: 1rem; line-height: 1.7; color: var(--muted); max-width: 360px; margin-bottom: 3rem; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 2rem; border: 1px solid var(--white); color: var(--white); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
+  .hero-cta:hover { background: var(--white); color: var(--black); }
+  .hero-cta .arrow { transition: transform 0.3s; }
+  .hero-cta:hover .arrow { transform: translateX(6px); }
+  .hero-right { background: var(--accent); position: relative; overflow: hidden; }
+  .hero-right::after { content: 'CREATIVE\ADESIGNER'; white-space: pre; position: absolute; bottom: -2rem; right: -1rem; font-family: var(--display); font-size: 11vw; line-height: 0.85; color: rgba(0,0,0,0.12); text-align: right; pointer-events: none; }
+  .hero-img-placeholder { width: 100%; height: 100%; object-fit: cover; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: rgba(0,0,0,0.4); }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 3rem; display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); z-index: 3; }
+  .scroll-line { width: 40px; height: 1px; background: var(--muted); animation: scrollLine 2s ease-in-out infinite; }
+  @keyframes scrollLine { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(0.4); transform-origin:left} }
+
+  /* MARQUEE */
+  .marquee-bar { background: var(--accent); padding: 0.9rem 0; overflow: hidden; white-space: nowrap; }
+  .marquee-inner { display: inline-flex; gap: 3rem; animation: marquee 18s linear infinite; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee-item { font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.1em; color: var(--black); }
+  .marquee-dot { color: rgba(0,0,0,0.3); }
+
+  /* ABOUT */
+  #about { display: grid; grid-template-columns: 1fr 1.4fr; min-height: 80vh; }
+  .about-left { background: var(--cream); color: var(--black); padding: 6rem 3rem; display: flex; flex-direction: column; justify-content: center; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; font-weight: 500; }
+  .about-headline { font-family: var(--display); font-size: clamp(3rem, 5vw, 5.5rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 2rem; color: var(--black); }
+  .about-text { font-size: 1.05rem; line-height: 1.8; color: #4a4740; margin-bottom: 1.5rem; max-width: 400px; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid #c8c4ba; }
+  .stat-num { font-family: var(--display); font-size: 3.5rem; line-height: 1; color: var(--accent); letter-spacing: 0.02em; }
+  .stat-label { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+  .about-right { background: #1a1916; position: relative; display: flex; align-items: stretch; }
+  .about-img-placeholder { width: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; color: #3a3834; font-size: 1rem; padding: 6rem 3rem; text-align: center; }
+  .about-shape { position: absolute; top: 3rem; right: 3rem; width: 120px; height: 120px; border: 1px solid var(--accent); border-radius: 50%; opacity: 0.3; }
+
+  /* WORK */
+  #work { padding: 7rem 3rem; background: var(--black); }
+  .work-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .work-title { font-family: var(--display); font-size: clamp(3.5rem, 6vw, 7rem); line-height: 0.9; letter-spacing: 0.02em; }
+  .work-title em { font-family: var(--serif); font-style: italic; color: var(--accent); font-size: 0.6em; display: block; margin-bottom: 0.2em; font-variant: normal; }
+  .view-all { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--muted); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; white-space: nowrap; margin-bottom: 0.5rem; }
+  .view-all:hover { color: var(--white); border-color: var(--white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #2a2825; }
+  .project-card { background: var(--black); position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; transition: transform 0.4s ease; }
+  .project-card:hover { transform: scale(0.98); z-index: 2; }
+  .project-img { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 0.9rem; color: #3a3834; transition: opacity 0.3s; }
+  .project-card:hover .project-img { opacity: 0.7; }
+  .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,13,12,0.9) 0%, transparent 60%); }
+  .project-content { position: relative; z-index: 2; }
+  .project-cat { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem; font-weight: 500; }
+  .project-name { font-family: var(--display); font-size: 1.9rem; letter-spacing: 0.05em; line-height: 1; margin-bottom: 0.5rem; }
+  .project-year { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; }
+  .project-tag { display: inline-block; margin-top: 1rem; padding: 0.3rem 0.8rem; border: 1px solid rgba(255,255,255,0.2); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); border-radius: 100px; transition: border-color 0.2s, color 0.2s; }
+  .project-card:hover .project-tag { border-color: var(--accent); color: var(--accent); }
+
+  /* SHOP */
+  #shop { background: var(--cream); color: var(--black); padding: 7rem 3rem; }
+  .shop-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .shop-title { font-family: var(--display); font-size: clamp(3.5rem, 6vw, 7rem); line-height: 0.9; letter-spacing: 0.02em; color: var(--black); }
+  .shop-title em { font-family: var(--serif); font-style: italic; color: var(--accent); font-size: 0.6em; display: block; margin-bottom: 0.2em; }
+  .view-all-dark { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--muted); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; white-space: nowrap; margin-bottom: 0.5rem; }
+  .view-all-dark:hover { color: var(--black); border-color: var(--black); }
+  .shop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .shop-card { cursor: pointer; }
+  .shop-img { aspect-ratio: 1; background: #e0dbd1; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; color: #b0aaa0; font-size: 0.85rem; overflow: hidden; position: relative; transition: background 0.3s; }
+  .shop-card:hover .shop-img { background: #d4cec3; }
+  .shop-add-btn { position: absolute; bottom: 0; left: 0; right: 0; background: var(--black); color: var(--white); padding: 0.8rem; text-align: center; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s; }
+  .shop-card:hover .shop-add-btn { transform: translateY(0); }
+  .shop-product-name { font-size: 0.9rem; font-weight: 400; color: var(--black); margin-bottom: 0.3rem; }
+  .shop-product-price { font-family: var(--display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--accent); }
+  .shop-product-type { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+
+  /* CONTACT */
+  #contact { background: var(--accent); padding: 7rem 3rem; position: relative; overflow: hidden; }
+  #contact::before { content: 'HELLO'; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%); font-family: var(--display); font-size: 22vw; color: rgba(0,0,0,0.08); pointer-events: none; line-height: 1; }
+  .contact-inner { max-width: 700px; position: relative; z-index: 2; }
+  .contact-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 1.5rem; font-weight: 500; }
+  .contact-headline { font-family: var(--display); font-size: clamp(4rem, 8vw, 9rem); line-height: 0.88; letter-spacing: 0.02em; color: var(--black); margin-bottom: 3rem; }
+  .contact-headline span { font-family: var(--serif); font-style: italic; font-size: 0.75em; display: block; }
+  .contact-links { display: flex; flex-direction: column; gap: 0; margin-bottom: 4rem; }
+  .contact-link { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid rgba(0,0,0,0.2); text-decoration: none; color: var(--black); transition: padding-left 0.3s; }
+  .contact-link:hover { padding-left: 1rem; }
+  .contact-link-name { font-family: var(--display); font-size: 1.6rem; letter-spacing: 0.05em; }
+  .contact-link-arrow { font-size: 1.4rem; transition: transform 0.3s; }
+  .contact-link:hover .contact-link-arrow { transform: translate(4px, -4px); }
+  .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .contact-form input, .contact-form textarea { background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.3); padding: 0.9rem 0; font-family: var(--body); font-size: 0.95rem; color: var(--black); outline: none; transition: border-color 0.2s; width: 100%; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(0,0,0,0.4); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--black); }
+  .contact-form textarea { grid-column: 1 / -1; resize: none; height: 80px; }
+  .contact-submit { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 1rem; padding: 1.1rem 2.5rem; background: var(--black); color: var(--white); border: none; font-family: var(--body); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; width: fit-content; margin-top: 0.5rem; }
+  .contact-submit:hover { background: #2a2825; }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #2a2825; }
+  .footer-logo { font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.08em; color: var(--white); text-decoration: none; }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; }
+  .footer-socials { display: flex; gap: 1.5rem; }
+  .footer-socials a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-socials a:hover { color: var(--white); }
+
+  /* LIGHTBOX */
+  .lightbox-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(10,9,8,0.97); overflow-y: auto; }
+  .lightbox-overlay.active { display: flex; flex-direction: column; }
+  .lightbox-inner { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; }
+  .lightbox-close { position: fixed; top: 1.8rem; right: 2.5rem; z-index: 1010; background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); width: 44px; height: 44px; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; }
+  .lightbox-close:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+  .lightbox-img-panel { background: #1a1916; display: flex; align-items: center; justify-content: center; min-height: 100vh; position: sticky; top: 0; font-family: var(--serif); font-style: italic; color: #3a3834; font-size: 1rem; }
+  .lightbox-img-panel img { width: 100%; height: 100%; object-fit: cover; }
+  .lightbox-info { padding: 8rem 4rem 5rem; display: flex; flex-direction: column; justify-content: center; }
+  .lb-cat { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.5rem; font-weight: 500; }
+  .lb-title { font-family: var(--display); font-size: clamp(3rem, 5vw, 6rem); line-height: 0.9; letter-spacing: 0.03em; margin-bottom: 1rem; }
+  .lb-year { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .lb-dims { font-family: var(--serif); font-style: normal; font-size: 1rem; color: var(--muted); margin-bottom: 3rem; }
+  .lb-divider { width: 40px; height: 1px; background: var(--accent); margin-bottom: 2.5rem; }
+  .lb-desc { font-size: 1rem; line-height: 1.8; color: #a09890; margin-bottom: 1.5rem; max-width: 460px; }
+  .lb-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid #2a2825; }
+  .lb-meta-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .lb-meta-value { font-size: 0.9rem; color: var(--white); }
+  .lb-nav { display: flex; gap: 1rem; margin-top: 3rem; }
+  .lb-nav-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.5rem; border: 1px solid rgba(255,255,255,0.15); color: var(--muted); background: none; font-family: var(--body); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+  .lb-nav-btn:hover { border-color: var(--white); color: var(--white); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .lightbox-inner { grid-template-columns: 1fr; }
+    .lightbox-img-panel { min-height: 50vh; position: static; }
+    .lightbox-info { padding: 3rem 2rem 5rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    #about { grid-template-columns: 1fr; }
+    .about-right { display: none; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .shop-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 1.2rem 1.5rem; }
+    #work, #shop, #contact, footer { padding: 5rem 1.5rem; }
+    .hero-left { padding: 7rem 1.5rem 4rem; }
+    .about-left { padding: 5rem 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .shop-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .contact-form { grid-template-columns: 1fr; }
+    .work-header, .shop-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">EDREANNA</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tagline">— Filipino Artist based in Toronto</p>
+    <h1 class="hero-name">EDREANNA<br><span>VALIENTE</span></h1>
+    <p class="hero-desc">Multidisciplinary paintings exploring Filipino identity, culture, and community. Bold colour, traditional tattoo patterns, and expressive mark-making come together to honour heritage, acknowledge struggle, and celebrate belonging.</p>
+    <a href="#work" class="hero-cta">
+      See My Work
+      <span class="arrow">→</span>
+    </a>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      Scroll
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="photos/homesplash.jpg" alt="home splash" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-item">BOLD</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">LOUD</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">COLOURFUL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">VIBRANT</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">VERSATILE</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">EXPERIMENTAL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">TRADITIONAL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">DIGITAL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">BOLD</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">LOUD</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">COLOURFUL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">VIBRANT</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">VERSATILE</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">EXPERIMENTAL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">TRADITIONAL</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">DIGITAL</span><span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <p class="section-label">Who I Am</p>
+    <h2 class="about-headline">ROOTED.<br>EXPESSIVE.<br>YOURS.</h2>
+    <p class="about-text">
+      <strong>Edreanna Valiente</strong> is an emerging Filipino artist based in Toronto, Canada. Her practice centers on heritage, identity and diasporic belonging through mixed media and contemporary painting. Edreanna's work is characterized by traditional Filipino tattoo patterns and vibrant tropical colours, which function as visual representations linking the present to ancestral history. Edreanna articulates her art as a space for cultural reclamation, preservation and continuity.
+    </p>
+    <p class="about-text">
+      She is a current student at Humber Polytechnic studying Visual and Digital Arts (VADA), and an active member of the Visual and Digital Arts Club, serving as a Logistics Manager. Edreanna also contributes to leading exhibition development and documentation for <i>Lingua Franca</i>, an upcoming exhibition at the Humber Galleries. She participated in <i>The InSitu Festival 2026</i> at Mississauga and her works are currently exhibited as a part of <i>Impulse</i> at the Humber Art Commons. She will also be featured in the upcoming show <i>Lingua Franca</i>.
+    </p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num" onclick="openCV()" style="cursor:pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">CURRICULUM VITAE ↗</div>
+        <div class="stat-label"></div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-shape"></div>
+<img src="photos/ChristineValiente.jpg" alt="Edreanna Valiente" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header">
+    <h2 class="work-title">
+      <em>selected</em>
+      WORK
+    </h2>
+    <a href="#" class="view-all">View all projects →</a>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card" onclick="openLightbox(0)">
+      <img class="project-img" src="photos/Christine.Valiente_MNMH_2.jpeg" alt="Marilag na mga Hayop" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">ACRYLIC ON CANVAS</p>
+        <h3 class="project-name">MARILAG NA<br>MGA HAYOP</h3>
+        <p class="project-year">2025</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:#1a1916;" onclick="openLightbox(1)">
+      <img class="project-img" src="photos/Christine.Valiente_Buwaya.jpeg" alt="BUWAYA" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">ACRYLIC ON CANVAS</p>
+        <h3 class="project-name">BUWAYA</h3>
+        <p class="project-year">2025</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" onclick="openLightbox(2)">
+      <img class="project-img" src="photos/Christine.Valiente_KATHA.jpeg" alt="KATHA" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">INK &amp; GOUACHE ON CANVAS</p>
+        <h3 class="project-name">KATHA</h3>
+        <p class="project-year">2026</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:#1a1916;" onclick="openLightbox(3)">
+      <img class="project-img" src="photos/Christine.Valiente_ARUGA.jpeg" alt="ARUGA" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">ACRYLIC ON CANVAS</p>
+        <h3 class="project-name">ARUGA</h3>
+        <p class="project-year">2026</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" onclick="openLightbox(4)">
+      <img class="project-img" src="photos/Christine.Valiente_AbstractiveDrive.jpeg" alt="ABSTRACTIVE" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">ACRYLIC ON CANVAS</p>
+        <h3 class="project-name">ABSTRACTIVE<br>DRIVE</h3>
+        <p class="project-year">2025</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:#1a1916;" onclick="openLightbox(5)">
+      <img class="project-img" src="photos/Christine.Valiente_80sPlaylist.jpeg" alt="80'S" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">OIL ON CANVAS</p>
+        <h3 class="project-name">80'S<br>PLAYLIST</h3>
+        <p class="project-year">2025</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:#1a1916;" onclick="openLightbox(6)">
+      <img class="project-img" src="photos/Christine.Valiente_2002VWCabrio.jpeg" alt="2002 VW Cabrio" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">Digital</p>
+        <h3 class="project-name">2002 VW<br>Cabrio</h3>
+        <p class="project-year">2024</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:#1a1916;" onclick="openLightbox(7)">
+      <img class="project-img" src="photos/Christine.Valiente_ShadowBox.jpg" alt="ShadowBox" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">Oil on Canvas</p>
+        <h3 class="project-name">Shadow Box</h3>
+        <p class="project-year">2025</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:#1a1916;" onclick="openLightbox(8)">
+      <img class="project-img" src="photos/Christine.Valiente_Agust.jpeg" alt="Agust" style="width:100%;height:100%;object-fit:cover;">
+      <div class="project-overlay"></div>
+      <div class="project-content">
+        <p class="project-cat">Scratch Board</p>
+        <h3 class="project-name">Agust</h3>
+        <p class="project-year">2025</p>
+        <span class="project-tag">View Project</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <div class="lightbox-inner">
+    <div class="lightbox-img-panel" id="lb-img">Artwork image</div>
+    <div class="lightbox-info">
+      <p class="lb-cat" id="lb-cat">Category</p>
+      <h2 class="lb-title" id="lb-title">Title</h2>
+      <p class="lb-year" id="lb-year">Year</p>
+      <p class="lb-dims" id="lb-dims">Dimensions</p>
+      <div class="lb-divider"></div>
+      <p class="lb-desc" id="lb-desc">Description</p>
+      <div class="lb-meta">
+        <div>
+          <p class="lb-meta-label">Medium</p>
+          <p class="lb-meta-value" id="lb-medium">—</p>
+        </div>
+        <div>
+          <p class="lb-meta-label">Year</p>
+          <p class="lb-meta-value" id="lb-year2">—</p>
+        </div>
+        <div>
+          <p class="lb-meta-label">Theme</p>
+          <p class="lb-meta-value" id="lb-theme">—</p>
+        </div>
+        <div>
+          <p class="lb-meta-label">Availability</p>
+          <p class="lb-meta-value" id="lb-avail">—</p>
+        </div>
+      </div>
+      <div class="lb-nav">
+        <button class="lb-nav-btn" onclick="prevProject()">← Prev</button>
+        <button class="lb-nav-btn" onclick="nextProject()">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CV MODAL -->
+<div id="cv-modal" style="display:none; position:fixed; inset:0; z-index:2000; background:rgba(10,9,8,0.97); flex-direction:column;">
+  <button onclick="closeCV()" style="position:fixed; top:1.8rem; right:2.5rem; z-index:2010; background:none; border:1px solid rgba(255,255,255,0.2); color:#f5f2ec; width:44px; height:44px; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+  <iframe src="files/EdreannnaValiente_CV.pdf" style="width:100%; height:100%; border:none;"></iframe>
+</div>
+
+<script>
+const projects = [
+  {
+    cat: 'Acrylic on Canvas',
+    title: 'MARILAG NA\nMGA HAYOP',
+    year: '2025',
+    desc: '"Marilag na mga hayop" translates to majestic animals. These are some of the national animals of the Philippines. This is an appreciation piece, a triptych artwork showcasing the Philippine eagle, milk fish and water buffalo. This is also inspired by tribal tattoos that are simply getting forgotten.',
+    medium: 'Acrylic on Canvas',
+    theme: 'Heritage · Nature',
+    avail: 'Not For Sale',
+    dims: '18 × 24 in Triptych',
+    imgsrc: 'photos/Christine.Valiente_Marilag.jpeg'
+  },
+  {
+    cat: 'Acrylic on Canvas',
+    title: 'BUWAYA',
+    year: '2025',
+    desc: 'When I was working on this piece there was a whole corruption scandal happening in the Philippines where billions of pesos were embezzled from the taxpayers. This piece is a sarcastic piece against the Philippine Government. The Tagalog word "Buwaya" means alligator/crocodile, it is used to describe greedy and corrupt politicians.',
+    medium: 'Acrylic on Canvas',
+    theme: 'Sarcasm · Politics',
+    avail: 'Not For Sale',
+    dims: '18 × 24 in',
+    imgsrc: 'photos/Christine.Valiente_Buwaya.jpeg'
+  },
+  {
+    cat: 'Ink & Gouache on Canvas',
+    title: 'KATHA',
+    year: '2026',
+    desc: '"Katha" is a Tagalog word that translates to creation in English. This is a non-representational piece that was made through an intuitive and free process. I experimented with gouache and printing ink for pigment meanwhile with the textures I used regular household materials like cleaning brush, paint scraper and beauty blender.',
+    medium: 'Ink & Gouache',
+    theme: 'Non-representational · Abstract',
+    avail: 'Available',
+    dims: '16 × 20 in Diptych',
+    imgsrc: 'photos/Christine.Valiente_Katha.jpeg'
+  },
+  {
+    cat: 'Acrylic on Canvas',
+    title: 'ARUGA',
+    year: '2026',
+    desc: 'I was inspired to make an abstraction of a mother holding her child. The Tagalog word "Aruga" means nurture in English. This piece is influenced by cubism, I used fragmented shapes and bold colours like green, blue, and orange. The patterns are drawn by acrylic markers to add texture and movement to the piece.',
+    medium: 'Acrylic on Canvas',
+    theme: 'Womanhood · Resilience',
+    avail: 'Available',
+    dims: '20 × 20 in',
+    imgsrc: 'photos/Christine.Valiente_Aruga.jpeg'
+  },
+  {
+    cat: 'Acrylic on Canvas',
+    title: 'ABSTRACTIVE\nDRIVE',
+    year: '2025',
+    desc: 'Inspired by a photograph of a small red Fiat, this abstraction piece transforms the car\u2019s iconic boxy shape into a bold crimson focal point surrounded by swirling patterns of teal, green, and navy. The layered textures and vibrant colors capture the energy and movement associated with cars, turning a personal photograph into a dynamic mixed-media composition.',
+    medium: 'Acrylic on Canvas',
+    theme: 'Hobby · Abstraction',
+    avail: 'Available',
+    dims: '24 × 24 in',
+    imgsrc: 'photos/Christine.Valiente_AbstractiveDrive.jpeg'
+  },
+  {
+    cat: 'Oil on Canvas',
+    title: '80\u2019S PLAYLIST',
+    year: '2025',
+    desc: 'A painting of a live model. I was playing a playlist that consists of 80\u2019s pop music and got inspired to play with crazy colours.',
+    medium: 'Oil on Canvas',
+    theme: 'Figure · Bold Colours',
+    avail: 'Available',
+    dims: '24 × 36 in',
+    imgsrc: 'photos/Christine.Valiente_80sPlaylist.jpeg'
+  },
+  {
+    cat: 'Digital',
+    title: '2002 VW Cabrio',
+    year: '2024',
+    desc: 'A commissioned digital drawing of a vintage car.',
+    medium: 'Digital',
+    theme: 'Car · Neon',
+    avail: 'Not For Sale',
+    dims: '1087 x 1920 px',
+    imgsrc: 'photos/Christine.Valiente_2002VWCabrio.jpeg'
+  },
+  {
+    cat: 'Oil on Canvas',
+    title: 'Shadow Box',
+    year: '2025',
+    desc: 'Inspired by moving into a new home.',
+    medium: 'Oil on Canvas',
+    theme: 'Still Life · Realism',
+    avail: 'Available',
+    dims: '12 × 16 in',
+    imgsrc: 'photos/Christine.Valiente_ShadowBox.jpg'
+  },
+  {
+    cat: 'Scratch Board',
+    title: 'Agust',
+    year: '2025',
+    desc: 'A portraiture of my pet cat Agust.',
+    medium: 'Scratch Board',
+    theme: 'Cat · Black and White',
+    avail: 'Not For Sale',
+    dims: '12 × 16 in',
+    imgsrc: 'photos/Christine.Valiente_Agust.jpeg'
+  }
+];
+
+let current = 0;
+
+function openLightbox(index) {
+  current = index;
+  render();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function render() {
+  const p = projects[current];
+  document.getElementById('lb-cat').textContent = p.cat;
+  document.getElementById('lb-title').innerHTML = p.title.replace('\n', '<br>');
+  document.getElementById('lb-year').textContent = p.year;
+  document.getElementById('lb-dims').textContent = p.dims;
+  document.getElementById('lb-desc').textContent = p.desc;
+  document.getElementById('lb-medium').textContent = p.medium;
+  document.getElementById('lb-year2').textContent = p.year;
+  document.getElementById('lb-theme').textContent = p.theme;
+  document.getElementById('lb-avail').textContent = p.avail;
+  document.getElementById('lb-img').innerHTML = `<img src="${p.imgsrc}" style="width:100%;height:100%;object-fit:contain;">`;
+  document.getElementById('lightbox').scrollTop = 0;
+}
+
+function nextProject() {
+  current = (current + 1) % projects.length;
+  render();
+}
+
+function prevProject() {
+  current = (current - 1 + projects.length) % projects.length;
+  render();
+}
+
+function openCV() {
+  const modal = document.getElementById('cv-modal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCV() {
+  const modal = document.getElementById('cv-modal');
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+document.getElementById('cv-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeCV();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeLightbox();
+    closeCV();
+  }
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'ArrowRight') nextProject();
+  if (e.key === 'ArrowLeft') prevProject();
+});
+</script>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="shop-header">
+    <h2 class="shop-title">
+      <em>the</em>
+      SHOP
+    </h2>
+    <a href="#" class="view-all-dark">Browse all →</a>
+  </div>
+  <div class="shop-grid">
+
+    <div class="shop-card">
+      <div class="shop-img">
+              <img src="photos/coming_soon.jpg" alt="Coming Soon Banner" style="width:100%;height:100%;object-fit:cover;">
+        <div class="shop-add-btn">Coming Soon!</div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+
+        <img src="photos/coming_soon.jpg" alt="Coming Soon Banner" style="width:100%;height:100%;object-fit:cover;">
+        <div class="shop-add-btn">Coming Soon!</div>
+      </div>
+    </div>
+    <div class="shop-card">
+
+        <img src="photos/coming_soon.jpg" alt="Coming Soon Banner" style="width:100%;height:100%;object-fit:cover;">
+        <div class="shop-add-btn">Coming Soon!</div>
+      </div>
+    </div>
+    <!-- <div class="shop-card">
+        <img src="photos/coming_soon.jpg" alt="Coming Soon Banner" style="width:100%;height:100%;object-fit:cover;">
+        <div class="shop-add-btn">Coming Soon!</div>
+      </div>
+      <!--<p class="shop-product-type">Zine</p>
+      <p class="shop-product-name">Type &amp; Print No. 3</p>
+      <p class="shop-product-price">$</p>  SHOP -->
+    </div> -->
+
+    <div class="shop-card">
+        <img src="photos/coming_soon.jpg" alt="Coming Soon Banner" style="width:100%;height:100%;object-fit:cover;">
+        <div class="shop-add-btn">Coming Soon!</div>
+      </div>
+      <!-- <p class="shop-product-type">Print</p>
+      <p class="shop-product-name">Print No. 4</p>
+      <p class="shop-product-price">$</p> -->
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="contact-label">Get in touch</p>
+    <h2 class="contact-headline">
+      <span>let's make</span>
+      SOME<br>THING
+    </h2>
+    <div class="contact-links">
+      <a href="mailto:c.edreannavaliente@gmail.com" class="contact-link">
+        <span class="contact-link-name">Email</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://www.instagram.com/eedtart/" class="contact-link" target="_blank">
+        <span class="contact-link-name">Instagram</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-link-name">LinkedIn</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+    </div>
+    <form class="contact-form" onsubmit="return false;">
+      <input type="text" placeholder="Your name">
+      <input type="email" placeholder="Your email">
+      <textarea placeholder="Tell me about your project…"></textarea>
+      <button type="submit" class="contact-submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">EV.</a>
+  <p class="footer-copy">© 2025 Edreanna Valiente. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/eedtart/" target="_blank">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
